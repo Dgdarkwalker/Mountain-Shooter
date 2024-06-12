@@ -1,11 +1,13 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
+from pygame import Surface
+
 
 class Level:
-    def __init__(self):
-        self.window = None
+    def __init__(self, window, nome: str, option: int):
+        self.window: Surface = window
+        self.nome = nome
+        self.option = option
         self.entity_list = None
 
-    def run(self, ):
+    def run(self):
         pass
 
