@@ -47,7 +47,7 @@ class Menu:
                     if event.key == pygame.K_RETURN and menu_option == len(MENU_OPTION) - 1:
                         self.encerrar_programa()
                     elif event.key == pygame.K_RETURN:
-                        return menu_option
+                        return MENU_OPTION[menu_option]
 
     @staticmethod
     def encerrar_programa():
@@ -60,6 +60,7 @@ class Menu:
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
 
-    def verificar_eventos(self, event):
+    @staticmethod
+    def verificar_eventos(event):
         if event.type == pygame.QUIT:
-            self.encerrar_programa()
+            Menu.encerrar_programa()
