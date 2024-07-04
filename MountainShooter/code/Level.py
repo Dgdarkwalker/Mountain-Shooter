@@ -1,3 +1,5 @@
+import random
+
 import pygame.display
 from pygame import Surface, Rect
 from pygame.font import Font
@@ -5,7 +7,7 @@ from pygame.font import Font
 from code.EntityFactory import EntityFactory
 from code.Entity import Entity
 from code.Menu import Menu
-from code.constants import COLOR_WHITE
+from code.constants import COLOR_WHITE, MENU_OPTION, EVENT_ENEMY
 
 
 class Level:
@@ -16,6 +18,9 @@ class Level:
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
         self.entity_list.append(EntityFactory.get_entity('Player1'))
+        if menu_option in [MENU_OPTION[1], MENU_OPTION[2]]:
+            self.entity_list.append(EntityFactory.get_entity('Player2'))
+        pygame.time.set_timer(EVENT_ENEMY, 2000)
 
     def run(self):
         clock = pygame.time.Clock()
@@ -25,6 +30,9 @@ class Level:
             clock.tick(60)
             for event in pygame.event.get():
                 Menu.verificar_eventos(event)
+                if event.type == EVENT_ENEMY:
+                    choice = random.choice(('Enemy1', 'Enemy2'))
+                    self.entity_list.append(EntityFactory.get_entity(choice))
 
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
